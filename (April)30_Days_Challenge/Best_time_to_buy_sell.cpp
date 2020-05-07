@@ -28,7 +28,9 @@
 // 1 <= prices.length <= 3 * 10 ^ 4
 // 0 <= prices[i] <= 10 ^ 4
 
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
+#include <algorithm>
 using namespace std;
 
 class Solution
