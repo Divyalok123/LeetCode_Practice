@@ -7,7 +7,7 @@
 
 #include <iostream>
 #include <string>
-#include <stack>
+// #include <stack>
 using namespace std;
 
 class Solution
@@ -19,41 +19,25 @@ public:
         {
             return "0";
         }
-
-        stack<int> s;
-        s.push(num[0]);
+        string ans = "";
+        ans.push_back(num[0]);
 
         for (int i = 1; i < num.length(); i++)
         {
-            while (!s.empty() && k != 0 && (s.top() > num[i]))
+            while (ans.length() && k != 0 && (ans.back() > num[i]))
             {
-                s.pop();
+                ans.pop_back();
                 k--;
             }
-
-            s.push(num[i]);
+            ans.push_back(num[i]);
         }
 
-        if (k != 0)
+        while (k != 0 && ans.length())
         {
-            while (k != 0 && !s.empty())
-            {
-                s.pop();
-                k--;
-            }
+            ans.pop_back();
+            k--;
         }
 
-        string ans = "";
-
-        while (!s.empty())
-        {
-            ans += s.top();
-            s.pop();
-        }
-
-        reverse(ans.begin(), ans.end());
-
-        int i = 0;
         while (ans[0] == '0')
         {
             ans.erase(0, 1);
