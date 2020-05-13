@@ -10,64 +10,54 @@
 #include <stack>
 using namespace std;
 
-class Solution {
+class Solution
+{
 public:
-    string removeKdigits(string num, int k) {
-        if(num.length() == k)
+    string removeKdigits(string num, int k)
+    {
+        if (num.length() == k)
         {
             return "0";
         }
-        
+
         stack<int> s;
         s.push(num[0]);
-        
-        for(int i = 1; i < num.length(); i++)
+
+        for (int i = 1; i < num.length(); i++)
         {
-            while(!s.empty() && k != 0 && (s.top() > num[i]))
+            while (!s.empty() && k != 0 && (s.top() > num[i]))
             {
                 s.pop();
                 k--;
             }
-            
+
             s.push(num[i]);
         }
-        
-        if(k != 0)
+
+        if (k != 0)
         {
-            while(k!=0 && !s.empty())
+            while (k != 0 && !s.empty())
             {
                 s.pop();
                 k--;
             }
         }
-        
+
         string ans = "";
-        
-        while(!s.empty())
+
+        while (!s.empty())
         {
             ans += s.top();
             s.pop();
         }
-        
+
         reverse(ans.begin(), ans.end());
-        
+
         int i = 0;
-        while(i != ans.length())
+        while (ans[0] == '0')
         {
-            if(ans[i] != '0')
-                break;
-            i++;
+            ans.erase(0, 1);
         }
-        
-        ans = ans.substr(i, ans.length()-i);
-        
-        if(ans == "")
-        {
-            return "0";
-        }
-        
-        return ans;
-        
+        return ans.length() == 0 ? "0" : ans;
     }
 };
-
