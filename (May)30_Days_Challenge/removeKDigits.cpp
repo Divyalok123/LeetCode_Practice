@@ -29,7 +29,7 @@ public:
                 ans.pop_back();
                 k--;
             }
-            ans.push_back(num[i]);
+            if(ans.length() || num[i] != '0') ans.push_back(num[i]);
         }
 
         while (k != 0 && ans.length())
@@ -38,10 +38,10 @@ public:
             k--;
         }
 
-        while (ans[0] == '0')
-        {
-            ans.erase(0, 1);
-        }
+        // while (ans[0] == '0')
+        // {
+        //     ans.erase(0, 1);
+        // }
         return ans.length() == 0 ? "0" : ans;
     }
 };
