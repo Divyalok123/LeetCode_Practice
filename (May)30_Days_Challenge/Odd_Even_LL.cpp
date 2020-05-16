@@ -40,7 +40,7 @@ public:
     }
 };
 
-//Initial Solution (Without much optimisation either)
+//Initial Solution (No optimisations)
 //Method: swapping 
 class Solution {
 public:
