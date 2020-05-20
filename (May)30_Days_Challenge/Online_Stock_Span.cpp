@@ -18,6 +18,10 @@ public:
     
     int next(int price) {
         idx++;
+        while(!store.empty() && store.top().first <= price)
+        {
+            store.pop();
+        }
         if(store.empty())
         {
             store.push({price, idx});
@@ -25,21 +29,9 @@ public:
         }
         else
         {
-            while(!store.empty() && store.top().first <= price)
-            {
-                store.pop();
-            }
-            if(store.empty())
-            {
-                store.push({price, idx});
-                return store.top().second;
-            }
-            else
-            {
-                int val = store.top().second;
-                store.push({price, idx});
-                return idx-val; 
-            }
+            int val = store.top().second;
+            store.push({price, idx});
+            return idx-val; 
         }
     }
 };
