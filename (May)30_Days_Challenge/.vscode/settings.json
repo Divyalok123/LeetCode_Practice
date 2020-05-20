@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "tuple": "cpp",
-        "utility": "cpp"
+        "utility": "cpp",
+        "stack": "cpp"
     }
 }
