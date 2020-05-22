@@ -7,6 +7,25 @@
 #include <string>
 using namespace std;
 
+//Solution 2 (concise)
+class Solution {
+public:
+    string frequencySort(string s) {
+        int freqarray[256] = {0};
+        for(int i = 0; i < s.length(); i++)
+        {
+            freqarray[s[i]]++;
+        }
+        
+        sort(s.begin(), s.end(), [&](char a, char b)
+             {
+                 return freqarray[a] == freqarray[b] ? a < b : freqarray[a] > freqarray[b];
+             });
+        
+        return s;
+    }
+};
+
 //Solution 1
 class comparator {
 public:
