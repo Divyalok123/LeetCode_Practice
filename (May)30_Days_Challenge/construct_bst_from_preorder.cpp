@@ -33,16 +33,15 @@ class Solution
             return new TreeNode(preorder[pos1]);
         }
 
-        int left_pos1 = pos1+1;
+        int left_pos1 = pos1 + 1;
         int right_pos1 = pos1;
-        while(right_pos1 <= pos2 && preorder[right_pos1] <= preorder[pos1])
+        while (right_pos1 <= pos2 && preorder[right_pos1] <= preorder[pos1])
         {
             right_pos1++;
         }
-        
-        
-        TreeNode* root = new TreeNode(preorder[pos1]);
-        root->left = helper(preorder, left_pos1, right_pos1-1);
+
+        TreeNode *root = new TreeNode(preorder[pos1]);
+        root->left = helper(preorder, left_pos1, right_pos1 - 1);
         root->right = helper(preorder, right_pos1, pos2);
         return root;
     }
@@ -57,12 +56,16 @@ public:
 };
 
 //Solution 2 (concise)
-class Solution {
+class Solution
+{
     int i = 0;
+
 public:
-    TreeNode* bstFromPreorder(vector<int>& preorder, int limit = INT_MAX) {
-        if(i >= preorder.size() || preorder[i] > limit) return NULL;
-        TreeNode* root = new TreeNode(preorder[i++]);
+    TreeNode *bstFromPreorder(vector<int> &preorder, int limit = INT_MAX)
+    {
+        if (i >= preorder.size() || preorder[i] > limit)
+            return NULL;
+        TreeNode *root = new TreeNode(preorder[i++]);
         root->left = bstFromPreorder(preorder, root->val);
         root->right = bstFromPreorder(preorder, limit);
         return root;
