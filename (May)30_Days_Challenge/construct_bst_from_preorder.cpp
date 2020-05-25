@@ -55,3 +55,16 @@ public:
         return helper(preorder, pos1, pos2);
     }
 };
+
+//Solution 2 (concise)
+class Solution {
+    int i = 0;
+public:
+    TreeNode* bstFromPreorder(vector<int>& preorder, int limit = INT_MAX) {
+        if(i >= preorder.size() || preorder[i] > limit) return NULL;
+        TreeNode* root = new TreeNode(preorder[i++]);
+        root->left = bstFromPreorder(preorder, root->val);
+        root->right = bstFromPreorder(preorder, limit);
+        return root;
+    }
+};
