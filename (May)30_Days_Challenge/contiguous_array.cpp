@@ -3,10 +3,64 @@
 #include <iostream>
 #include <vector>
 #include <unordered_map>
+#include <algorithm>
 using namespace std;
+//Solution 3(array) (faster)
+class Solution {
+public:
+    Solution() {
+        ios_base::sync_with_stdio(false);
+        cin.tie(NULL);
+        cout.tie(NULL);
+    }
+    
+    int findMaxLength(vector<int>& nums) {
+        int n = nums.size();
+        int v[100002] = {};
+        int max_len = 0;
+        int sum = n;
+        for(int i = 0; i < n; i++)
+        {
+            sum += (nums[i] == 0) ? -1 : 1;
+            if(sum == n)
+            { 
+                max_len = i + 1;
+                continue;
+            }
+            if(v[sum] != 0) max_len = max(max_len, i - v[sum]+1);
+            else v[sum] = i+1;
+        }
+        return max_len;   
+    }
+};
 
 //Solution 2 (hashmap) (passed)
-
+class Solution {
+public:
+    Solution() {
+        ios_base::sync_with_stdio(false);
+        cin.tie(NULL);
+        cout.tie(NULL);
+    }
+    
+    int findMaxLength(vector<int>& nums) {
+        unordered_map<int, int> mapp;
+        int max_len = 0;
+        int sum = 0;
+        for(int i = 0; i < nums.size(); i++)
+        {
+            sum += (nums[i] == 0) ? -1 : 1;
+            if(sum == 0)
+            { 
+                max_len = i + 1;
+                continue;
+            }
+            if(mapp.find(sum) != mapp.end()) max_len = max(max_len, i - mapp[sum]);
+            else mapp[sum] = i;
+        }
+        return max_len;   
+    }
+};
 
 //Solution 1 (brute) (TLE)
 class Solution {
