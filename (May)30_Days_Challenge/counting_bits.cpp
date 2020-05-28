@@ -6,7 +6,38 @@
 #include <vector>
 using namespace std;
 
-//Solution 2
+//Solution 3 (fastest)
+class Solution {
+public:
+    vector<int> countBits(int num) {
+        ios_base::sync_with_stdio(false);
+        cin.tie(0);
+        cout.tie(0);
+        vector<int> output(num + 1);
+        output[0] = 0;
+        for(int i = 1; i <= num; i++)
+        {
+            output[i] = output[i&(i-1)] + 1;
+        }
+        
+        return output;
+    }
+};
+
+//Solution 2 
+class Solution {
+public:
+    vector<int> countBits(int num) {
+        vector<int> output(num + 1);
+        output[0] = 0;
+        for(int i = 1; i <= num; i++)
+        {
+            output[i] = output[i/2] + i%2;
+        }
+        
+        return output;
+    }
+};
 
 
 //Solution 1

@@ -60,7 +60,7 @@ class Solution {
 public:
     int maxProfit(vector<int>& prices) {
         int n = prices.size();
-        int cool = 0, hold = INT_MIN /* Initially holding nothing */, sell = 0;
+        int cool = 0, hold = INT_MIN, sell = 0;
         for(int i = 0; i < n; i++)
         {
             hold = max(hold, cool - prices[i]);
@@ -69,5 +69,4 @@ public:
         }
         return max(cool, sell);
     }
-    
 };
