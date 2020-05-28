@@ -2,6 +2,7 @@
     "files.associations": {
         "tuple": "cpp",
         "utility": "cpp",
-        "stack": "cpp"
+        "stack": "cpp",
+        "cmath": "cpp"
     }
 }

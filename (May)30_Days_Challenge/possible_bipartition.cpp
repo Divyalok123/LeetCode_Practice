@@ -11,7 +11,50 @@
 
 using namespace std;
 
-//Approach 2 (Graph coloring) (passed)
+//Approach 3 (using sets) (without graph)
+
+
+//Approach 2 (Graph Coloring) *DFS*
+class Solution {
+    
+public:
+    
+    bool dfs(vector<vector<int>>& adjlist, vector<int>& coloring, int node, int color)
+    {
+        if(coloring[node] != -1)
+            return coloring[node] == color;
+        coloring[node] = color;
+        for(auto ele: adjlist[node])
+        {            
+            if(!dfs(adjlist, coloring, ele, 1 - color))
+                    return false;
+        }
+        
+        return true;
+    }
+    
+    bool possibleBipartition(int N, vector<vector<int>>& dislikes) {
+        vector<int> coloring(N+1, -1);
+        
+        vector<vector<int>> adjlist(N+1);
+        for(int i = 0; i < dislikes.size(); i++)
+        {
+            adjlist[dislikes[i][0]].push_back(dislikes[i][1]);
+            adjlist[dislikes[i][1]].push_back(dislikes[i][0]);
+        }
+        
+        for(int i = 1; i <= N; i++)
+        {
+            if(coloring[i] == -1 && !dfs(adjlist, coloring, i, 1))
+                return false;
+        }
+        
+        return true;
+    }
+};
+
+
+//Approach 1 (Graph coloring) *BFS*
 class Solution
 {
 public:
