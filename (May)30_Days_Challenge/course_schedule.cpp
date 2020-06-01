@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <cmath>
 #include <cstring>
+#include <queue>
 
 //Solution 2 (BFS) (degree)
 class Solution
