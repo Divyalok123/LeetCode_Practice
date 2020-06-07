@@ -9,7 +9,24 @@
 using namespace std;
 
 //solution 2
-
+class Solution {
+public:
+    vector<vector<int>> reconstructQueue(vector<vector<int>>& people) {
+        int size = people.size();
+        sort(people.begin(), people.end(), [&](vector<int>& a, vector<int>& b){
+            return a[0] > b[0] || (a[0] == b[0] && a[1] < b[1]);
+        });
+        
+        vector<vector<int>> v;
+        
+        for(int i = 0; i < size; i++)
+        {
+            v.insert(v.begin()+people[i][1], {people[i][0], people[i][1]});
+        }
+        
+        return v;
+    }
+};
 
 //solution 1
 class Solution
