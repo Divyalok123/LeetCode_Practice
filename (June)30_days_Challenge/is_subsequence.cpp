@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include <vector>
+#include <algorithm> //upper_bound
 #include <string>
 #include <cstring>
 using namespace std;
@@ -23,9 +24,31 @@ public:
                 j++;
             }
         }
-        
         return j == slength;
     }
 };
 
 //solution for follow-up
+class Solution {
+public:
+    bool isSubsequence(string s, string t) {
+        int slength = s.length();
+        int tlength = t.length();
+        //store the indexes
+        vector<int> store[26];
+        for(int i = 0; i < tlength; i++)
+        {
+            store[t[i]-'a'].push_back(i);
+        }
+
+        //keep checking for indices 
+        int index = -1;
+        for(int i = 0; i < slength; i++)
+        {
+            auto val = upper_bound(store[s[i]-'a'].begin(), store[s[i]-'a'].end(), index);
+            if(val == store[s[i]-'a'].end()) return false;
+            index = *val;
+        }
+        return true;
+    }
+};
