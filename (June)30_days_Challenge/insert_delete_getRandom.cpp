@@ -10,8 +10,43 @@
 #include <algorithm>
 using namespace std;
 
-//solution 2 (using vector and maps)
-
+//solution 2 (using vector and map)
+class RandomizedSet {
+    unordered_map<int, int> mymap;
+    vector<int> v;
+public:
+    RandomizedSet() {
+        
+    }
+    
+    bool insert(int val) {
+        if(mymap.find(val) == mymap.end())
+        {
+            v.push_back(val);
+            mymap[val] = v.size()-1;
+            return true;
+        }
+        return false;
+    }
+    
+    bool remove(int val) {
+        if(mymap.find(val) != mymap.end())
+        {
+            int temp = v.back();
+            mymap[temp] = mymap[val];
+            v[mymap[temp]] = temp;
+            v.pop_back();
+            mymap.erase(val);
+            return true;
+        }
+        return false;
+    }
+    
+    int getRandom() {
+        int ind = rand()%(v.size());
+        return v[ind];
+    }
+};
 
 //solution 1 (using set/map) (not O(1) worst case)
 class RandomizedSet {
