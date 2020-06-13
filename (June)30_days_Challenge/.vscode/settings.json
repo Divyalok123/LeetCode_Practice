@@ -3,6 +3,7 @@
         "iosfwd": "cpp",
         "xstring": "cpp",
         "algorithm": "cpp",
-        "xhash": "cpp"
+        "xhash": "cpp",
+        "unordered_map": "cpp"
     }
 }
