@@ -10,6 +10,40 @@
 #include <queue>
 using namespace std;
 
+//DFS (no sefl cycle so no need for visited check)
+class Solution
+{
+public:
+    void dfs(int s, int d, int k, int cost, unordered_map<int, vector<pair<int, int>>> &mapp, int &ans)
+    {
+        if (s == d)
+        {
+            ans = cost;
+            return;
+        }
+        if (k == 0)
+            return;
+
+        for (auto p : mapp[s])
+        {
+            if (p.second + cost > ans)
+                continue;
+            dfs(p.first, d, k - 1, cost + p.second, mapp, ans);
+        }
+    }
+
+    int findCheapestPrice(int n, vector<vector<int>> &flights, int src, int dst, int k)
+    {
+        unordered_map<int, vector<pair<int, int>>> mapp;
+        for (auto i : flights)
+            mapp[i[0]].emplace_back(i[1], i[2]);
+
+        int ans = INT_MAX;
+        dfs(src, dst, k + 1, 0, mapp, ans);
+        return ans == INT_MAX ? -1 : ans;
+    }
+};
+
 //BFS
 class Solution
 {
