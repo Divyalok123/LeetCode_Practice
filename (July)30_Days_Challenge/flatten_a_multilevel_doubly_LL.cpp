@@ -35,6 +35,7 @@ public:
             {
                 cur = flatten(cur->child);
                 pre->next = cur;
+                pre->child = NULL; //added here
                 cur->prev = pre;
                 while (cur->next != NULL)
                 {
@@ -47,13 +48,13 @@ public:
             cur = nxt;
         }
 
-        Node *curr = head;
-        while (curr != NULL)
-        {
-            if (curr->child)
-                curr->child = NULL;
-            curr = curr->next;
-        }
+        // Node *curr = head;
+        // while (curr != NULL)
+        // {
+        //     if (curr->child)
+        //         curr->child = NULL;
+        //     curr = curr->next;
+        // }
 
         return head;
     }
