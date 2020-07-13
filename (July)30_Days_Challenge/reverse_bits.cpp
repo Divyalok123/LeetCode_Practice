@@ -24,7 +24,7 @@ public:
     }
 };
 
-//solution 1
+//solution 1 (better)
 class Solution
 {
 public:
