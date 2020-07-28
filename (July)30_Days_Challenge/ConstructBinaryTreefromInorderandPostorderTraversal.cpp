@@ -5,6 +5,7 @@ You may assume that duplicates do not exist in the tree.
 */
 
 #include <iostream>
+#include <vector>
 using namespace std;
 
 // Definition for a binary tree node.
