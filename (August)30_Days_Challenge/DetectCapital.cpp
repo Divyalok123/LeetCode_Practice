@@ -8,12 +8,14 @@ using namespace std;
 class Solution {
 public:
     bool detectCapitalUse(string word) {
-        int count = 0;
-        int n = word.size();
-        for(int i = 0; i < n; i++) {
+        bool flag = false;
+        if(isupper(word[0])) flag = true;
+        int count = flag;
+        for(int i = 1; word[i]; i++) {
             if(isupper(word[i])) count++;
+            if(!flag and count > 0) return false;
         }
         
-        return (count==1 && isupper(word[0])) || count == 0 || count==n;
+        return (count==1 && flag) || count == 0 || count==word.size();
     }
 };
