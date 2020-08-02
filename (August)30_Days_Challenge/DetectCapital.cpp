@@ -13,7 +13,7 @@ public:
         int count = flag;
         for(int i = 1; word[i]; i++) {
             if(isupper(word[i])) count++;
-            if(!flag and count > 0) return false;
+            if(!flag && count > 0) return false;
         }
         
         return (count==1 && flag) || count == 0 || count==word.size();
