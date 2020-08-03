@@ -12,7 +12,7 @@ class MyHashSet {
     vector<bool> v;
 public:
     MyHashSet() {
-        v.resize(1000000);
+        v.resize(1000001);
     }
     
     void add(int key) {
