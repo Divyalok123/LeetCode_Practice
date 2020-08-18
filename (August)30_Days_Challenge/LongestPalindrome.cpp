@@ -5,6 +5,7 @@ https://leetcode.com/explore/featured/card/august-leetcoding-challenge/550/week-
 #include <iostream>
 #include <string>
 #include <algorithm>
+#include <vector>
 using namespace std;
 
 class Solution {
