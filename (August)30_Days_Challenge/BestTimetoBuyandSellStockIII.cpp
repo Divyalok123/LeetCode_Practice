@@ -18,7 +18,7 @@ public:
         int dp[3];
         int minv[3];
         fill(minv, minv + 3, prices[0]);
-        memset(dp, 0, sizeof(dp)); //memset doesn't always work properly
+        memset(dp, 0, sizeof(dp)); //memset doesn't always work properly so use fill/fill_n or put elements iteratively
         for (int i = 1; i < prices.size(); i++)
         {
             for (int k = 1; k <= 2; k++)

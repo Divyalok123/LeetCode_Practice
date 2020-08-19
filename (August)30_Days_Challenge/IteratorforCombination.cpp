@@ -9,7 +9,56 @@ https://leetcode.com/explore/featured/card/august-leetcoding-challenge/550/week-
 using namespace std;
 
 //solution 2
+class CombinationIterator
+{
+    string s;
+    int n, l;
+    vector<int> v;
 
+public:
+    CombinationIterator(string characters, int combinationLength)
+    {
+        n = combinationLength;
+        l = characters.length();
+        s = characters;
+        v.resize(n);
+        for (int i = 0; i < n; i++)
+            v[i] = i;
+    }
+    int count = 0;
+    string next()
+    {
+        string ans = "";
+        if (count == 0)
+        {
+            for (int i = 0; i < n; i++)
+                ans += s[i];
+            count = 1;
+            return ans;
+        }
+
+        for (int i = n - 1; i >= 0; i--)
+        {
+            if (v[i] != l - n + i)
+            {
+                v[i] += 1;
+                for (int j = i + 1; j < n; j++)
+                {
+                    v[j] = v[i] + j - i;
+                }
+                break;
+            }
+        }
+        for (int i = 0; i < n; i++)
+            ans += s[v[i]];
+        return ans;
+    }
+
+    bool hasNext()
+    {
+        return v[0] != l - n;
+    }
+};
 
 //solution 1
 class CombinationIterator
