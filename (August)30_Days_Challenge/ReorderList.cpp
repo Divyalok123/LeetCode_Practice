@@ -6,7 +6,8 @@ https://leetcode.com/explore/challenge/card/august-leetcoding-challenge/551/week
 using namespace std;
 
 //Definition for singly-linked list.
-struct ListNode {
+struct ListNode
+{
     int val;
     ListNode *next;
     ListNode() : val(0), next(nullptr) {}
@@ -14,24 +15,27 @@ struct ListNode {
     ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
 
-class Solution {
+class Solution
+{
 public:
-    void reorderList(ListNode* head) {
-        if(!head || !head->next) return;
-        
-        ListNode* slow = head, *fast = head;
-        
-        while(fast != NULL && fast->next != NULL)
+    void reorderList(ListNode *head)
+    {
+        if (!head || !head->next)
+            return;
+
+        ListNode *slow = head, *fast = head;
+
+        while (fast != NULL && fast->next != NULL)
         {
             slow = slow->next;
             fast = fast->next->next;
         }
-        
+
         fast = slow->next;
         slow->next = NULL;
-        
-        ListNode* prev = NULL, *held = NULL, *curr = fast;
-        while(curr != NULL)
+
+        ListNode *prev = NULL, *held = NULL, *curr = fast;
+        while (curr != NULL)
         {
             held = curr->next;
             curr->next = prev;
@@ -41,7 +45,7 @@ public:
         fast = prev;
         slow = head;
         curr = slow;
-        while(slow && fast)
+        while (slow && fast)
         {
             held = slow->next;
             prev = fast->next;
@@ -50,7 +54,6 @@ public:
             slow = held;
             fast = prev;
         }
-        
-        head = curr;
+        // head = curr;
     }
 };
