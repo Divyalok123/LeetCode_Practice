@@ -7,6 +7,47 @@ https://leetcode.com/explore/challenge/card/august-leetcoding-challenge/552/week
 #include <vector>
 using namespace std;
 
+//dp
+class Solution
+{
+
+    int search(vector<int> &days, int x)
+    {
+        int l = 0, r = days.size() - 1, m;
+        while (l <= r)
+        {
+            m = (l + r) / 2;
+            if (days[m] == x)
+                return m;
+            else if (days[m] < x)
+                l = m + 1;
+            else
+                r = m - 1;
+        }
+        return -1;
+    }
+
+public:
+    int mincostTickets(vector<int> &days, vector<int> &costs)
+    {
+        if (days.size() == 0)
+            return 0;
+
+        int n = days.size();
+        vector<int> dp(30);
+
+        for (int i = days.front(); i <= days.back(); i++)
+        {
+            if (search(days, i) != -1)
+                dp[i % 30] = min(dp[(i - 1) % 30] + costs[0], min(dp[max(0, i - 7) % 30] + costs[1], dp[max(0, i - 30) % 30] + costs[2]));
+            else
+                dp[i % 30] = dp[(i - 1) % 30];
+        }
+
+        return dp[days.back() % 30];
+    }
+};
+
 //Memo
 class Solution
 {
