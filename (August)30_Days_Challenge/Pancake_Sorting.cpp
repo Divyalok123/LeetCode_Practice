@@ -9,42 +9,49 @@ using namespace std;
 
 vector<int> pancakeSort(vector<int> &arr)
 {
+    vector<int> ans;
     int i, j, a, b;
     for (i = 0; i < arr.size(); i++)
     {
-        int maxind = -1, maxval = -1;
+        int maxind = -1;
         for (j = 0; j < arr.size() - i; j++)
         {
-            if (arr[j] > maxval)
+            if (arr[j] == arr.size() - i)
             {
-                maxval = arr[j];
                 maxind = j;
+                break;
             }
         }
 
-        a = 0;
-        b = maxind;
-        while (a < b)
+        if (maxind != arr.size() - i - 1)
         {
-            swap(arr[a], arr[b]);
-            a++, b--;
-        }
+            a = 0;
+            b = maxind;
+            while (a < b)
+            {
+                swap(arr[a], arr[b]);
+                a++, b--;
+            }
+            ans.push_back(maxind + 1);
 
-        a = 0;
-        b = arr[0] - 1;
-        while (a < b)
-        {
-            swap(arr[a], arr[b]);
-            a++, b--;
+            a = 0;
+            b = arr[0] - 1;
+            ans.push_back(arr[0]);
+            while (a < b)
+            {
+                swap(arr[a], arr[b]);
+                a++, b--;
+            }
         }
     }
-    return arr;
+    return ans;
 }
 
-int main() {
+int main()
+{
     vector<int> v = {5, 4, 3, 2, 1};
     v = pancakeSort(v);
-    for(auto a: v)
+    for (auto a : v)
         cout << a << " ";
     cout << endl;
     return 0;

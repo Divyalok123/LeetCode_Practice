@@ -8,6 +8,8 @@ https://leetcode.com/explore/challenge/card/august-leetcoding-challenge/552/week
 #include <vector>
 using namespace std;
 
+static int x = [](){ios_base::sync_with_stdio(false);cin.tie(0);cout.tie(0);return 0;}();
+
 class node {
 public:
     bool isend;
@@ -23,6 +25,7 @@ public:
 class StreamChecker {
     node* root = new node();
     vector<char> v;
+    int maxlength;
 public:
     void add(node* root, string& word)
     {
@@ -37,35 +40,30 @@ public:
         root->isend = true;
     }
     
-    bool search(node* root, string& word)
-    {
-        if(root == NULL) return false;
-        
-        int ind;
-        for(int i = 0; i < word.size(); i++)
-        {
-            ind = word[i]-'a';
-            if(root->children[ind] == NULL) return false;
-            root = root->children[ind];
-        }
-        
-        return root->isend;
-    }
-    
     StreamChecker(vector<string>& words) {
-        for(auto w: words) {
+        maxlength = -1;
+        int length;
+        for(auto& w: words) {
             reverse(w.begin(), w.end());
             add(this->root, w);
+            length = w.length();
+            if(maxlength < length)
+                maxlength = length;
         }
     }
     
     bool query(char letter) {
+        v.insert(v.begin(), letter);        
+        int ind;
+        node* thisroot = this->root;
+        for(int i = 0; i < maxlength && i < v.size(); i++)
+        {
+            ind = v[i]-'a';
+            if(thisroot->isend) return true;
+            if(thisroot->children[ind] == NULL) return false;
+            thisroot = thisroot->children[ind];
+        }
         
+        return thisroot->isend;
     }
 };
-
-/**
- * Your StreamChecker object will be instantiated and called as such:
- * StreamChecker* obj = new StreamChecker(words);
- * bool param_1 = obj->query(letter);
- */
