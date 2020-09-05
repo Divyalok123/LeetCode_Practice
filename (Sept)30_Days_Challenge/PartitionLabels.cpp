@@ -5,6 +5,7 @@ https://leetcode.com/explore/featured/card/september-leetcoding-challenge/554/we
 #include <iostream>
 #include <vector>
 #include <string>
+#include <algorithm>
 using namespace std;
 
 class Solution {
