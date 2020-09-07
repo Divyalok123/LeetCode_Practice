@@ -5,10 +5,39 @@ https://leetcode.com/explore/featured/card/september-leetcoding-challenge/554/we
 #include <iostream>
 #include <string>
 #include <algorithm>
+#include <vector>
 using namespace std;
 
 //solution 3
+class Solution
+{
+public:
+    bool repeatedSubstringPattern(string s)
+    {
+        int n = s.length();
+        vector<int> lps(n);
+        int len = 0, i = 1;
+        lps[0] = 0;
+        while (i < n)
+        {
+            if (s[i] == s[len])
+            {
+                len++;
+                lps[i] = len;
+                i++;
+            }
+            else
+            {
+                if (len == 0)
+                    lps[i++] = 0;
+                else
+                    len = lps[len - 1];
+            }
+        }
 
+        return (n % (n - lps.back()) == 0 && lps.back() > 0 && (s.substr(lps.back()) == s.substr(0, n - lps.back())));
+    }
+};
 
 //solution 2: a really nice solution
 class Solution
