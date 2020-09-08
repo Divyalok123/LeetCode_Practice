@@ -20,7 +20,36 @@ struct TreeNode
 };
 
 //solution 2
+class Solution
+{
+public:
+    int dfs(TreeNode *root, int ans)
+    {
+        if (!root)
+            return 0;
+        if (!root->left && !root->right)
+        {
+            ans *= 2;
+            ans += root->val;
+            return ans;
+        }
 
+        ans *= 2;
+        ans += root->val;
+        return dfs(root->left, ans) + dfs(root->right, ans);
+    }
+
+    int sumRootToLeaf(TreeNode *root)
+    {
+        if (!root)
+            return 0;
+        if (!root->left && !root->right)
+            return root->val == 1;
+
+        int ans = dfs(root, 0);
+        return ans;
+    }
+};
 
 //solution 1
 class Solution
