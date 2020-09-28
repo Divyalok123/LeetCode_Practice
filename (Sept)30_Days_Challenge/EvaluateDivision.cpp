@@ -9,10 +9,10 @@ https://leetcode.com/explore/featured/card/september-leetcoding-challenge/557/we
 #include <unordered_map>
 using namespace std;
 
-/* --- Method 2 --- */
+/* --- Method 2 (DSU)--- */
 
 
-/* --- Method 1 --- */
+/* --- Method 1 (DFS)--- */
 class Solution
 {
 public:
