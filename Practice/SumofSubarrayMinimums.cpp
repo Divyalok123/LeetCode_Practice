@@ -8,6 +8,33 @@ https://leetcode.com/problems/sum-of-subarray-minimums/
 #include <stack>
 using namespace std;
 
+//--------(2)---------//
+#define MOD 1000000007
+class Solution
+{
+public:
+    int sumSubarrayMins(vector<int> &A)
+    {
+        int sum = 0, n = A.size(), ans = 0;
+        if (n == 1)
+            return A[0];
+        stack<int> s;
+        s.push(-1);
+        vector<int> dp(n + 1);
+        for (int i = 0; i < n; i++)
+        {
+            while ((s.top() != -1) && (A[s.top()] >= A[i]))
+                s.pop();
+            dp[i + 1] = (dp[s.top() + 1] + (i - s.top()) * A[i]) % MOD;
+            s.push(i);
+            ans += dp[i + 1];
+            ans %= MOD;
+        }
+
+        return ans;
+    }
+};
+
 //--------(1)---------//
 class Solution
 {
@@ -17,32 +44,30 @@ public:
         int sum = 0, n = A.size();
         if (n == 1)
             return A[0];
-        stack<pair<int, int>> s, ss;
-        vector<int> v(n), sv(n);
-        for (int i = 0; i < n; i++)
-            sv[i] = n - i;
-
-        pair<int, int> p;
-        for (int i = 0; i < n; i++)
+        vector<int> v1(n), v2(n);
         {
-            while (!s.empty() && s.top().second > A[i])
-                s.pop();
-            v[i] = s.empty() ? i + 1 : i - s.top().first;
-            s.push({i, A[i]});
+            stack<int> s1, s2;
 
-            while (!ss.empty() && ss.top().second > A[i])
+            for (int i = 0; i < n; i++)
             {
-                p = ss.top(), ss.pop();
-                sv[p.first] = i - p.first;
+                while (!s1.empty() && A[s1.top()] > A[i])
+                    s1.pop();
+                v1[i] = s1.empty() ? i + 1 : i - s1.top();
+                s1.push(i);
             }
-            ss.push({i, A[i]});
+
+            for (int i = n - 1; i >= 0; i--)
+            {
+                while (!s2.empty() && A[s2.top()] >= A[i])
+                    s2.pop();
+                v2[i] = s2.empty() ? n - i : s2.top() - i;
+                s2.push(i);
+            }
         }
 
+        int ans = 0;
         for (int i = 0; i < n; i++)
-        {
-            sum = (sum + A[i] * v[i] * sv[i]) % 1000000007;
-        }
-
-        return sum;
+            ans = (ans + A[i] * v1[i] * v2[i]) % 1000000007;
+        return ans;
     }
 };
