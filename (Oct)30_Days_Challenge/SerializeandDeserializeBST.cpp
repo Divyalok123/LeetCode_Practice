@@ -43,15 +43,8 @@ class Codec
                 if (temp)
                 {
                     ans += to_string(temp->val) + ".";
-                    if (temp->left)
-                        q.push(temp->left);
-                    else
-                        q.push(NULL);
-
-                    if (temp->right)
-                        q.push(temp->right);
-                    else
-                        q.push(NULL);
+                    q.push(temp->left);
+                    q.push(temp->right);
                 }
                 else
                     ans += ".";
