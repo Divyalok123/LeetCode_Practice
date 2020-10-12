@@ -4,8 +4,8 @@ https://leetcode.com/explore/challenge/card/october-leetcoding-challenge/560/wee
 
 #include <iostream>
 #include <string>
-#include <vector>
 #include <algorithm>
+#include <stack>
 using namespace std;
 
 class Solution
