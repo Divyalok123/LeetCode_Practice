@@ -86,8 +86,8 @@ public:
     void quicksort(vector<int> &nums, int i, int j)
     {
         srand(time(0));
-        while (i < j)
-        { //optimize
+        while (i < j) //optimization
+        { 
             int pivot = findpivot(nums, i, j);
             quicksort(nums, i, pivot - 1);
             // quicksort(nums, pivot+1, j);

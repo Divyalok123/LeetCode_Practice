@@ -5,6 +5,7 @@ https://leetcode.com/problems/largest-rectangle-in-histogram/
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <stack>
 using namespace std;
 
 class Solution {
