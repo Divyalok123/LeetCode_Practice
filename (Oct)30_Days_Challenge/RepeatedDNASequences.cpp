@@ -43,8 +43,8 @@ public:
         for (int i = 10; i < s.size(); i++)
         {
             val &= ~(3 << 18); //11 -> 11000000000000000000 -> 00111111111111111111 -> getting last 18 bits of val
-            val <<= 2;
-            val |= mm[s[i] - 'A'];
+            val <<= 2; //shifting right
+            val |= mm[s[i] - 'A']; //adding the current alph
             if (us.find(val) == us.end())
                 us.insert(val);
             else if (us2.find(val) == us2.end())
