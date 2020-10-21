@@ -10,7 +10,60 @@ https://leetcode.com/explore/challenge/card/october-leetcoding-challenge/561/wee
 using namespace std;
 
 /* Solution 3 */
+#define ff first
+#define ss second
+class Solution {
+public:
+    int maxProfit(int k, vector<int>& prices) {
+        if(prices.size() <= 1)
+            return 0;
+        int n = prices.size();
+        if(k >= n/2)
+        {
+            int ans = 0;
+            for(int i = 1; i < n; i++)
+                if(prices[i] > prices[i-1])
+                    ans += prices[i]-prices[i-1];
+            return ans;
+        }
+        
+        vector<int> profits;
+        stack<pair<int,int>> s;
+        
+        int i = 0, j = 0;
+        while(j < n) {
+            for(i = j; i < n-1 && (prices[i] >= prices[i+1]); i++);
+            for(j = i+1; j < n && (prices[j] >= prices[j-1]); j++);
+            
+            while(!s.empty() && (prices[i] < prices[s.top().ff])) {
+                profits.push_back(prices[s.top().ss-1] - prices[s.top().ff]);
+                s.pop();
+            }
+            
+            while(!s.empty() && (prices[j-1] >= prices[s.top().ss-1])) {
+                profits.push_back(prices[s.top().ss-1]-prices[i]);
+                i = s.top().ff;
+                s.pop();
+            }
+            
+            s.push({i, j});
+        }
+        
+        while(!s.empty()) {
+            profits.push_back(prices[s.top().ss-1]-prices[s.top().ff]);
+            s.pop();
+        }
+        
+        n = profits.size();
+        if(k >= n) {
+            return accumulate(profits.begin(), profits.end(), 0);
+        }
+        
+        nth_element(profits.begin(), profits.begin()+n-k, profits.end());
+        return accumulate(profits.begin() + n-k, profits.end(), 0);
+    }
 
+};
 
 /* Solution 2 */
 class Solution
