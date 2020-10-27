@@ -8,6 +8,34 @@ https://leetcode.com/explore/challenge/card/october-leetcoding-challenge/562/wee
 #include <algorithm>
 using namespace std;
 
+/* Improvised solution 2*/
+class Solution
+{
+public:
+    double champagneTower(int poured, int query_row, int query_glass)
+    {
+        if (poured == 0)
+            return 0;
+        double r, v[102][102] = {0.0};
+        v[0][0] = poured;
+
+        for (int i = 0; i < query_row; i++)
+        {
+            for (int j = 0; j <= i; j++)
+            {
+                if (v[i][j] >= 1)
+                {
+                    r = max(0.0, (v[i][j] - 1) / 2.0);
+                    v[i + 1][j] += r;
+                    v[i + 1][j + 1] += r;
+                }
+            }
+        }
+
+        return min(1.0, v[query_row][query_glass]);
+    }
+};
+
 /* Solution 2 */
 class Solution
 {
