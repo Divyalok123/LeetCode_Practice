@@ -14,6 +14,7 @@ public:
     {
         int n = tokens.size();
         sort(tokens.begin(), tokens.end());
+        
         if (n == 0 || p < tokens[0])
             return 0;
 
