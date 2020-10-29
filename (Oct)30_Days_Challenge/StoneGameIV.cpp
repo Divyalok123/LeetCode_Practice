@@ -9,7 +9,28 @@ https://leetcode.com/explore/challenge/card/october-leetcoding-challenge/562/wee
 using namespace std;
 
 /* Solution 2 */
-
+class Solution {
+    vector<bool> dp;
+public:
+    bool winnerSquareGame(int n) {
+        if(n <= 2)
+            return n&1;
+        
+        dp.resize(n+1);
+        dp[0] = false;
+        for(int i = 1; i <= n; i++) {
+            for(int j = 1; j*j <= i; j++) {
+                if(!dp[i-j*j])
+                {
+                    dp[i] = true;
+                    break;
+                }
+            }
+        }
+        
+        return dp[n];
+    }
+};
 
 /* Solution 1 */
 class Solution {
