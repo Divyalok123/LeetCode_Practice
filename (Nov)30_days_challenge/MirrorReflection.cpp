@@ -7,6 +7,17 @@ https://leetcode.com/explore/featured/card/november-leetcoding-challenge/566/wee
 #include <algorithm>
 using namespace std;
 
+/* Solution 2 */
+class Solution {
+public:
+    int mirrorReflection(int p, int q) {
+        while((p&1) == 0 && (q&1) == 0)
+            p /= 2, q /= 2;
+        
+        return (p&1 && q&1) ? 1 : (p&1 ? 0 : 2); 
+    }
+};  
+
 /* Solution 1 */
 class Solution {
 public:
