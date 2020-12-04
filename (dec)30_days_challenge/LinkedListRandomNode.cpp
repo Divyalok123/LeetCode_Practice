@@ -18,7 +18,24 @@ struct ListNode {
 
 /* Solution 2 */
 //considering a stream
-
+class Solution {
+    ListNode* root;
+public:
+    Solution(ListNode* head): root(head) { srand(0); }
+    
+    /** Returns a random node's value. */
+    int getRandom() {
+        ListNode* it = root;
+        int i = 1, ans;
+        while(it) {
+            if(rand()%i == i-1)
+                ans = it->val;
+            i++;
+            it = it->next;
+        }
+        return ans;
+    }
+};
 
 /* Solution 1 */
 //not considering a stream

@@ -15,6 +15,18 @@ struct TreeNode {
     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
 };
 
+/* Solution 3 */
+class Solution {
+public:
+    TreeNode* increasingBST(TreeNode* root, TreeNode* tail = NULL) {
+        if(!root) return tail;
+        TreeNode* left = increasingBST(root->left, root);
+        root->left = NULL;
+        root->right = increasingBST(root->right, tail);
+        return left;
+    }
+};
+
 /* Solution 2 */
 class Solution {
 public:
