@@ -6,6 +6,32 @@ https://leetcode.com/explore/featured/card/february-leetcoding-challenge-2021/58
 #include <algorithm>
 using namespace std;
 
+// Solution 4
+class Solution {
+public:
+    int hammingWeight(uint32_t n) {
+        int ans = 0;
+        while(n) {
+            ans++;
+            n &= (n-1);
+        }
+        return ans;
+    }
+};
+
+// Solution 3
+class Solution {
+public:
+    int hammingWeight(uint32_t n) {
+        int ans = 0;
+        while(n) {
+            ans++;
+            n -= (n&-n);
+        }
+        return ans;
+    }
+};
+
 // Solution 2
 class Solution {
 public:
