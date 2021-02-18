@@ -12,47 +12,110 @@ using namespace std;
 #define ff first
 #define ss second
 
-// Solution 2 (A* Search)
+// Solution 3 (A* search)
 
+
+// Solution 2 (Normal BFS)
+class Solution
+{
+public:
+    int shortestPathBinaryMatrix(vector<vector<int>> &grid)
+    {
+        int n = grid.size();
+        if (grid[0][0] == 1 || grid[n - 1][n - 1] == 1)
+            return -1;
+
+        int moves[8][2] = {{0, 1}, {0, -1}, {1, 0}, {1, 1}, {1, -1}, {-1, -1}, {-1, 0}, {-1, 1}};
+
+        vector<vector<bool>> vis(n, vector<bool>(n, 0));
+        queue<pair<int, int>> q;
+
+        q.push({0, 0});
+        vis[0][0] = 1;
+        int ans = 0;
+        while (q.size())
+        {
+            int sz = q.size();
+            while (sz--)
+            {
+                pair<int, int> p = q.front();
+                q.pop();
+
+                int pi = p.ff, pj = p.ss;
+                if (pi == n - 1 && pj == n - 1)
+                    return ans + 1;
+
+                for (int i = 0; i < 8; i++)
+                {
+                    int newi = pi + moves[i][0];
+                    int newj = pj + moves[i][1];
+
+                    if (newi >= 0 && newi < n && newj >= 0 && newj < n && !vis[newi][newj] && !grid[newi][newj])
+                    {
+                        vis[newi][newj] = 1;
+                        q.push(mp(newi, newj));
+                    }
+                }
+            }
+            ans++;
+        }
+
+        return -1;
+    }
+};
 
 // Solution 1 (Dijkstra)
-class Solution {
+#define mp make_pair
+#define ff first
+#define ss second
+
+class Solution
+{
 public:
-    int shortestPathBinaryMatrix(vector<vector<int>>& grid) {
+    int shortestPathBinaryMatrix(vector<vector<int>> &grid)
+    {
         int n = grid.size();
         using ppi = pair<int, pair<int, int>>;
 
-        if(grid[0][0] == 1) return -1;
-        
-        class cmp {
-            public:
-                bool operator()(ppi& a, ppi& b){
-                    return a.first > b.first;
-                }
+        if (n == 1)
+            return grid[0][0] == 0 ? 1 : -1;
+
+        if (grid[0][0] == 1)
+            return -1;
+        class cmp
+        {
+        public:
+            bool operator()(ppi &a, ppi &b)
+            {
+                return a.first > b.first;
+            }
         };
-        
-        
-        priority_queue<ppi, vector<ppi>, cmp> pq; 
-        int moves[8][2] = {{0,1}, {0,-1}, {1,0}, {1,1}, {1,-1}, {-1,-1},{-1, 0}, {-1,1}};
+
+        priority_queue<ppi, vector<ppi>, cmp> pq;
+        int moves[8][2] = {{0, 1}, {0, -1}, {1, 0}, {1, 1}, {1, -1}, {-1, -1}, {-1, 0}, {-1, 1}};
         vector<vector<int>> dist(n, vector<int>(n, INT_MAX));
         dist[0][0] = 1;
-        
+
         pq.push(mp(1, mp(0, 0)));
-        while(pq.size()) {
-            auto top = pq.top();pq.pop();
-            
-            for(int i = 0; i < 8; i++) {
+        while (pq.size())
+        {
+            auto top = pq.top();
+            pq.pop();
+            for (int i = 0; i < 8; i++)
+            {
                 int newi = top.ss.ff + moves[i][0];
                 int newj = top.ss.ss + moves[i][1];
-                
-                if(newi >= 0 && newi < n && newj >= 0 && newj < n && grid[newi][newj] == 0 && dist[newi][newj] > top.ff+1) {
+
+                if (newi >= 0 && newi < n && newj >= 0 && newj < n && grid[newi][newj] == 0 && dist[newi][newj] > top.ff + 1)
+                {
                     dist[newi][newj] = top.ff + 1;
-                    pq.push(mp(top.ff+1, mp(newi, newj)));
+                    if (newi == n - 1 && newj == n - 1)
+                        return dist[newi][newj];
+                    pq.push(mp(top.ff + 1, mp(newi, newj)));
                 }
             }
         }
-        
-        return dist[n-1][n-1] == INT_MAX ? -1 : dist[n-1][n-1];
+
+        return -1;
     }
-    
 };
