@@ -13,7 +13,50 @@ using namespace std;
 #define ss second
 
 // Solution 3 (A* search)
+class Solution {
+public:
+    int shortestPathBinaryMatrix(vector<vector<int>>& grid) {
+        int n = grid.size();
+        if(grid[0][0] == 1 || grid[n-1][n-1] == 1) return -1;        
 
+        int moves[8][2] = {{0,1}, {0,-1}, {1,0}, {1,1}, {1,-1}, {-1,-1},{-1, 0}, {-1,1}};
+        
+        using ppi = pair<pair<int, int>, pair<int, int>>;
+        class cmp {
+            public:
+            bool operator()(ppi const& a, ppi const& b){return a.ss.ff > b.ss.ff;};
+        };
+        
+        priority_queue<ppi, vector<ppi>, cmp> pq;
+        pq.push(mp(mp(0,0), mp(2*n, 1)));
+        
+        while(pq.size()) {
+            ppi p = pq.top();
+            pq.pop();
+            
+            int val = p.ss.ss;
+            int pi = p.ff.ff, pj = p.ff.ss;
+            
+            if(pi == n-1 && pj == n-1) return val;
+
+            for(int i = 0; i < 8; i++) {
+                int newi = pi + moves[i][0];
+                int newj = pj + moves[i][1];
+
+                if(newi>=0 && newi<n && newj>=0 && newj<n) {
+                    if(!grid[newi][newj] || grid[newi][newj] > val + 1) {
+                        grid[newi][newj] = val + 1;
+                        int heu = val + min((n-newi+1), (n-newj+1));
+                        pq.push(mp(mp(newi, newj), mp(heu, val+1)));
+                    }
+                }
+            }
+        }
+        
+        return -1;
+    }
+    
+};
 
 // Solution 2 (Normal BFS)
 class Solution
