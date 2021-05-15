@@ -16,7 +16,8 @@ using namespace std;
 // Solution 1 (Simple BFS)
 class Solution {
 public:
-    vector<vector<string>> findLadders(string beginWord, string endWord, vector<string>& wordList) {        
+    vector<vector<string>> findLadders(string beginWord, string endWord, vector<string>& wordList) {
+            
         int n = wordList.size();
         int ws = wordList[0].size();
         unordered_set<string> sset(wordList.begin(),wordList.end());
