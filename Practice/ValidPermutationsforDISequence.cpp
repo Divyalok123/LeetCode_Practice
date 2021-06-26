@@ -9,7 +9,7 @@ using namespace std;
 
 // Solution 2
 
-
+     
 // Solution 1
 #define MOD 1000000007
 class Solution {
